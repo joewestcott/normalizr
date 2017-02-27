@@ -1,5 +1,6 @@
 declare namespace schema {
   export type StrategyFunction = (value: any, parent: any, key: string) => any;
+  export type DenormalizeStrategyFunction = (value: any) => any;
   export type SchemaFunction = (value: any, parent: any, key: string) => string;
   export type MergeFunction = (entityA: any, entityB: any) => any;
 
@@ -11,7 +12,8 @@ declare namespace schema {
   export interface EntityOptions {
     idAttribute?: string | SchemaFunction
     mergeStrategy?: MergeFunction
-    processStrategy?: StrategyFunction
+    processStrategy?: StrategyFunction,
+    denormalizeStrategy?: DenormalizeStrategyFunction
   }
 
   export class Entity {

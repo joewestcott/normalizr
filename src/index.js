@@ -70,7 +70,7 @@ const unvisitEntity = (id, schema, unvisit, getEntity, cache) => {
     // Need to set this first so that if it is referenced further within the
     // denormalization the reference will already exist.
     cache[schema.key][id] = entityCopy;
-    cache[schema.key][id] = schema.denormalize(entityCopy, unvisit);
+    cache[schema.key][id] = schema.processDenormalizeStrategy(schema.denormalize(entityCopy, unvisit))
   }
 
   return cache[schema.key][id];

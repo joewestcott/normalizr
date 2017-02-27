@@ -14,7 +14,8 @@ export default class EntitySchema {
       mergeStrategy = (entityA, entityB) => {
         return { ...entityA, ...entityB };
       },
-      processStrategy = (input) => ({ ...input })
+      processStrategy = (input) => ({ ...input }),
+      denormalizeStrategy = (input) => ({ ...input })
     } = options;
 
     this._key = key;
@@ -22,6 +23,7 @@ export default class EntitySchema {
     this._idAttribute = idAttribute;
     this._mergeStrategy = mergeStrategy;
     this._processStrategy = processStrategy;
+    this._denormalizeStrategy = denormalizeStrategy
     this.define(definition);
   }
 
@@ -59,6 +61,10 @@ export default class EntitySchema {
 
     addEntity(this, processedEntity, input, parent, key);
     return this.getId(input, parent, key);
+  }
+
+  processDenormalizeStrategy(entity) {
+    return this._denormalizeStrategy(entity);
   }
 
   denormalize(entity, unvisit) {
